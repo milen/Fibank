@@ -1,2 +1,3 @@
 export { AppProviders } from './AppProviders'
-export { OfflineProvider, useOffline } from './OfflineProvider'
+export { OfflineProvider } from './OfflineProvider'
+export { useOffline } from './useOffline'

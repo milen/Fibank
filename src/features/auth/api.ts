@@ -17,7 +17,7 @@ export async function loginRequest(
     }),
   })
 
-  let data: (LoginResponse & { message?: string }) | null = null
+  let data: (LoginResponse & { message?: string }) | null
 
   try {
     data = (await response.json()) as LoginResponse & { message?: string }

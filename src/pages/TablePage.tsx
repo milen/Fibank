@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useEffectEvent, useState } from 'react'
 import { fetchPeoplePage, type Person } from '../features/people'
 import { useAuth } from '../features/auth'
 import LoadingOverlay from '../components/LoadingOverlay'
@@ -19,6 +19,10 @@ function TablePage() {
   const [error, setError] = useState<string | null>(null)
   const [reloadToken, setReloadToken] = useState(0)
 
+  const notifyOffline = useEffectEvent(() => {
+    showOfflineModal()
+  })
+
   useEffect(() => {
     let cancelled = false
 
@@ -37,7 +41,7 @@ function TablePage() {
       } catch (err) {
         if (!cancelled) {
           if (isNetworkError(err)) {
-            showOfflineModal()
+            notifyOffline()
             setError('Unable to load data while offline.')
           } else {
             setError(err instanceof Error ? err.message : 'Failed to load people')
@@ -55,7 +59,7 @@ function TablePage() {
     return () => {
       cancelled = true
     }
-  }, [page, reloadToken, showOfflineModal])
+  }, [page, reloadToken])
 
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
 
