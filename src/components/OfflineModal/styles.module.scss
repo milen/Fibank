@@ -12,26 +12,11 @@
 }
 
 .modal {
-  @include flex-column-center;
-  gap: $space-md;
   max-width: $modal-max-width;
   width: 100%;
-  padding: $space-xl;
-  text-align: center;
-  background: $color-surface;
-  border-radius: $radius-lg;
-  box-shadow: $shadow-lg;
-
-  h2 {
-    margin: 0;
-    color: $color-text;
-  }
-
-  p {
-    margin: 0;
-  }
 
   img {
     display: block;
+    margin: 0 auto;
   }
 }
