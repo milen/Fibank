@@ -1,0 +1,38 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  background: $color-overlay-soft;
+}
+
+.box {
+  @include flex-column-center;
+  @include card-surface;
+  gap: $space-md;
+  padding: $space-lg 1.75rem;
+
+  p {
+    margin: 0;
+    color: $color-text;
+  }
+}
+
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid $color-spinner-track;
+  border-top-color: $color-spinner;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

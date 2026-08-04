@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import LoginPage from './LoginPage'
+import LoginPage from '.'
 
 const loginMock = vi.fn()
 const showOfflineModalMock = vi.fn()
 const navigateMock = vi.fn()
 
-vi.mock('../features/auth', () => ({
+vi.mock('../../features/auth', () => ({
   useAuth: () => ({
     user: null,
     isAuthenticated: false,
@@ -16,7 +16,7 @@ vi.mock('../features/auth', () => ({
   }),
 }))
 
-vi.mock('../providers', () => ({
+vi.mock('../../providers', () => ({
   useOffline: () => ({
     isOfflineModalOpen: false,
     showOfflineModal: showOfflineModalMock,
@@ -25,9 +25,7 @@ vi.mock('../providers', () => ({
 }))
 
 vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual<typeof import('react-router-dom')>(
-    'react-router-dom',
-  )
+  const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom')
 
   return {
     ...actual,

@@ -1,14 +1,14 @@
 import { useEffect, useEffectEvent, useState } from 'react'
-import { fetchPeoplePage, type Person } from '../features/people'
-import { useAuth } from '../features/auth'
-import LoadingOverlay from '../components/LoadingOverlay'
-import { useOffline } from '../providers'
-import { isNetworkError } from '../utils/errors'
+import Header from '../../components/Header'
+import LoadingOverlay from '../../components/LoadingOverlay'
+import { fetchPeoplePage, type Person } from '../../features/people'
+import { useOffline } from '../../providers'
+import { isNetworkError } from '../../utils/errors'
+import styles from './styles.module.scss'
 
 const PAGE_SIZE = 10
 
-function TablePage() {
-  const { user, logout } = useAuth()
+function DashboardPage() {
   const { showOfflineModal } = useOffline()
   const [people, setPeople] = useState<Person[]>([])
   const [page, setPage] = useState(1)
@@ -64,16 +64,8 @@ function TablePage() {
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
 
   return (
-    <main>
-      <h1>Table</h1>
-      {user ? (
-        <p>
-          Signed in as {user.firstName} {user.lastName} (@{user.username})
-        </p>
-      ) : null}
-      <button type="button" onClick={logout}>
-        Logout
-      </button>
+    <main className={styles.page}>
+      <Header title="Dashboard" />
 
       {error ? (
         <div className="error-banner">
@@ -84,7 +76,7 @@ function TablePage() {
         </div>
       ) : null}
 
-      <div className="table-panel">
+      <div className={styles.panel}>
         {isLoading ? <LoadingOverlay /> : null}
 
         <table>
@@ -110,7 +102,7 @@ function TablePage() {
           </tbody>
         </table>
 
-        <div>
+        <div className={styles.pagination}>
           <button
             type="button"
             disabled={!hasPrevious || isLoading}
@@ -135,8 +127,8 @@ function TablePage() {
                   </option>
                 )
               })}
-            </select>
-            {' '}of {totalPages}
+            </select>{' '}
+            of {totalPages}
           </label>
 
           <button
@@ -152,4 +144,4 @@ function TablePage() {
   )
 }
 
-export default TablePage
+export default DashboardPage

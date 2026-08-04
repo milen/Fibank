@@ -1,0 +1,13 @@
+@use '../../styles/variables' as *;
+
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-md;
+}
+
+.name {
+  margin: 0;
+  color: $color-text-muted;
+}

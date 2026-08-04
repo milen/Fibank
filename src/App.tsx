@@ -1,9 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { GuestRoute, ProtectedRoute } from './features/auth'
+import DashboardPage from './pages/Dashboard'
+import LoginPage from './pages/Login'
 import { AppProviders } from './providers'
-import LoginPage from './pages/LoginPage'
-import TablePage from './pages/TablePage'
-import './App.css'
 
 function App() {
   return (
@@ -19,10 +18,10 @@ function App() {
             }
           />
           <Route
-            path="/table"
+            path="/dashboard"
             element={
               <ProtectedRoute>
-                <TablePage />
+                <DashboardPage />
               </ProtectedRoute>
             }
           />

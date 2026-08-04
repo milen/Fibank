@@ -1,0 +1,124 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $color-text;
+  background:
+    radial-gradient(circle at top left, $color-primary-soft 0%, transparent 42%),
+    linear-gradient(180deg, $color-bg 0%, #e8eef4 100%);
+}
+
+main {
+  width: min(100% - 2rem, $content-max-width);
+  margin: 0 auto;
+  padding: $space-2xl 0;
+}
+
+h1 {
+  margin: 0 0 $space-lg;
+  font-size: $font-size-lg;
+  font-weight: 700;
+  color: $color-primary;
+}
+
+p {
+  color: $color-text-muted;
+}
+
+button,
+select,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  padding: 0.55rem 1rem;
+  border: 1px solid transparent;
+  border-radius: $radius-sm;
+  color: $color-surface;
+  background: $color-primary;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: $color-primary-hover;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  background: $color-surface;
+  color: $color-text;
+}
+
+a {
+  color: $color-primary;
+
+  &:hover {
+    color: $color-primary-hover;
+  }
+}
+
+.error-banner {
+  margin: 0 0 $space-md;
+  color: $color-danger;
+
+  p {
+    margin: 0 0 $space-sm;
+    color: $color-danger;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  overflow: hidden;
+
+  th,
+  td {
+    padding: 0.75rem 0.85rem;
+    text-align: left;
+    border-bottom: 1px solid $color-border;
+  }
+
+  th {
+    background: $color-primary-soft;
+    color: $color-primary;
+    font-size: $font-size-md;
+    font-weight: 600;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
