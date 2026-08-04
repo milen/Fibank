@@ -8,6 +8,13 @@
 }
 
 .name {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-sm;
   margin: 0;
   color: $color-text-muted;
+}
+
+.icon {
+  flex-shrink: 0;
 }

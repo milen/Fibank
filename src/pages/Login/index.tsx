@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import type { SubmitEvent } from 'react'
+import { LogIn } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import Button from '../../components/Button'
 import Card from '../../components/Card'
 import Input from '../../components/Input'
 import { useAuth } from '../../features/auth'
@@ -93,9 +95,9 @@ function LoginPage() {
           />
           {error ? <p className="error-banner">{error}</p> : null}
           <div className={styles.actions}>
-            <button type="submit" disabled={!canSubmit}>
+            <Button htmlType="submit" type="default" icon={LogIn} fullWidth disabled={!canSubmit}>
               {isSubmitting ? 'Logging in…' : 'Login'}
-            </button>
+            </Button>
           </div>
         </form>
       </Card>

@@ -1,4 +1,6 @@
 import { useEffect, useEffectEvent, useState } from 'react'
+import { ChevronLeft, ChevronRight, RefreshCw, Table2 } from 'lucide-react'
+import Button from '../../components/Button'
 import Header from '../../components/Header'
 import LoadingOverlay from '../../components/LoadingOverlay'
 import { fetchPeoplePage, type Person } from '../../features/people'
@@ -65,14 +67,19 @@ function DashboardPage() {
 
   return (
     <main className={styles.page}>
-      <Header title="Dashboard" />
+      <Header title="Dashboard" icon={Table2} />
 
       {error ? (
         <div className="error-banner">
           <p>{error}</p>
-          <button type="button" onClick={() => setReloadToken((token) => token + 1)}>
+          <Button
+            type="danger"
+            variant="text"
+            icon={RefreshCw}
+            onClick={() => setReloadToken((token) => token + 1)}
+          >
             Retry
-          </button>
+          </Button>
         </div>
       ) : null}
 
@@ -103,13 +110,14 @@ function DashboardPage() {
         </table>
 
         <div className={styles.pagination}>
-          <button
-            type="button"
+          <Button
+            variant="text"
+            icon={ChevronLeft}
             disabled={!hasPrevious || isLoading}
             onClick={() => setPage((current) => current - 1)}
           >
             Previous
-          </button>
+          </Button>
 
           <label htmlFor="page-select">
             Page{' '}
@@ -131,13 +139,15 @@ function DashboardPage() {
             of {totalPages}
           </label>
 
-          <button
-            type="button"
+          <Button
+            variant="text"
+            icon={ChevronRight}
+            iconPosition="end"
             disabled={!hasNext || isLoading}
             onClick={() => setPage((current) => current + 1)}
           >
             Next
-          </button>
+          </Button>
         </div>
       </div>
     </main>

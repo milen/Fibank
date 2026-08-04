@@ -1,0 +1,97 @@
+@use 'sass:map';
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+$button-types: (
+  'default': (
+    color: $color-default,
+    soft: $color-default-soft,
+  ),
+  'success': (
+    color: $color-success,
+    soft: $color-success-soft,
+  ),
+  'disabled': (
+    color: $color-disabled,
+    soft: $color-disabled-soft,
+  ),
+  'danger': (
+    color: $color-danger,
+    soft: $color-danger-soft,
+  ),
+  'warning': (
+    color: $color-warning,
+    soft: $color-warning-soft,
+  ),
+);
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-sm;
+  padding: 0.55rem 1rem;
+  border-radius: $radius-sm;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    opacity 0.15s ease;
+
+  &:disabled,
+  &[data-type='disabled'] {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &.iconOnly {
+    padding: 0.55rem;
+  }
+
+  &.fullWidth {
+    display: flex;
+    width: 100%;
+  }
+
+  .icon {
+    flex-shrink: 0;
+  }
+
+  .label {
+    line-height: 1;
+  }
+
+  @each $type, $tokens in $button-types {
+    $accent: map.get($tokens, color);
+    $soft: map.get($tokens, soft);
+
+    &[data-type='#{$type}'] {
+      &[data-variant='solid'] {
+        color: $color-surface;
+        background: $accent;
+        border: 1px solid $accent;
+
+        &:hover:not(:disabled) {
+          background: $soft;
+          color: $accent;
+        }
+      }
+
+      &[data-variant='text'] {
+        color: $accent;
+        background: transparent;
+        border: 1px solid transparent;
+
+        &:hover:not(:disabled) {
+          background: $soft;
+        }
+      }
+    }
+  }
+}

@@ -8,5 +8,12 @@
 }
 
 .title {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-sm;
   margin: 0;
+}
+
+.icon {
+  flex-shrink: 0;
 }
