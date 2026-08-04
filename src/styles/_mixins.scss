@@ -28,3 +28,33 @@
   margin: 0;
   line-height: $height;
 }
+
+@mixin respond-from($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin respond-md {
+  @include respond-from($bp-md) {
+    @content;
+  }
+}
+
+@mixin respond-lg {
+  @include respond-from($bp-lg) {
+    @content;
+  }
+}
+
+@mixin responsive-padding($scale: 1) {
+  padding: ($padding-sm * $scale);
+
+  @include respond-md {
+    padding: ($padding-md * $scale);
+  }
+
+  @include respond-lg {
+    padding: ($padding-lg * $scale);
+  }
+}

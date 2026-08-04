@@ -1,4 +1,5 @@
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .page {
   display: flex;
@@ -19,4 +20,62 @@
   align-items: center;
   justify-content: space-between;
   gap: $space-md;
+}
+
+.nameCell {
+  width: 80%;
+
+  @include respond-md {
+    width: 40%;
+  }
+}
+
+.desktopOnly {
+  display: none;
+
+  @include respond-md {
+    display: table-cell;
+    width: 15%;
+  }
+}
+
+.mobileOnly {
+  display: table-cell;
+  text-align: right;
+
+  @include respond-md {
+    display: none;
+  }
+}
+
+.detailsList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  margin: 0 0 $space-lg;
+  padding: 0;
+  list-style: none;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.detailLabel {
+  margin: 0;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $color-text-muted;
+}
+
+.detailValue {
+  margin: 0;
+  color: $color-text;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
 }
