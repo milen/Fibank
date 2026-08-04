@@ -1,0 +1,11 @@
+@use '../../styles/variables' as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.title {
+  margin: 0;
+}

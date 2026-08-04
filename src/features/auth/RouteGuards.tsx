@@ -6,7 +6,7 @@ export function GuestRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated } = useAuth()
 
   if (isAuthenticated) {
-    return <Navigate to="/table" replace />
+    return <Navigate to="/dashboard" replace />
   }
 
   return children
