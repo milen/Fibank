@@ -6,12 +6,88 @@
   flex-direction: column;
   gap: $space-xs;
   margin-bottom: $space-md;
+
+  &[data-tone='default'] {
+    .label {
+      color: $color-default;
+    }
+
+    .field {
+      &:focus {
+        @include focus-ring($color-default);
+        border-color: $color-default;
+      }
+    }
+  }
+
+  &[data-tone='success'] {
+    .label,
+    .error {
+      color: $color-success;
+    }
+
+    .field {
+      border-color: $color-success;
+      background: $color-success-soft;
+
+      &:focus {
+        @include focus-ring($color-success);
+        border-color: $color-success;
+      }
+    }
+  }
+
+  &[data-tone='disabled'] {
+    .label,
+    .error {
+      color: $color-disabled;
+    }
+
+    .field {
+      border-color: $color-disabled;
+      background: $color-disabled-soft;
+    }
+  }
+
+  &[data-tone='danger'] {
+    .label,
+    .error {
+      color: $color-danger;
+    }
+
+    .field {
+      border-color: $color-danger;
+      background: $color-danger-soft;
+
+      &:focus {
+        @include focus-ring($color-danger);
+        border-color: $color-danger;
+      }
+    }
+  }
+
+  &[data-tone='warning'] {
+    .label,
+    .error {
+      color: $color-warning;
+    }
+
+    .field {
+      border-color: $color-warning;
+      background: $color-warning-soft;
+
+      &:focus {
+        @include focus-ring($color-warning);
+        border-color: $color-warning;
+      }
+    }
+  }
 }
 
 .label {
   font-size: $font-size-md;
   font-weight: 600;
-  color: $color-text;
+  color: $color-default;
 }
 
 .field {
@@ -38,16 +114,5 @@
 .error {
   @include visually-reserved-line;
   font-size: $font-size-sm;
-  color: $color-danger;
-}
-
-.rootError {
-  .field {
-    border-color: $color-danger;
-
-    &:focus {
-      @include focus-ring($color-danger);
-      border-color: $color-danger;
-    }
-  }
+  color: $color-text-muted;
 }

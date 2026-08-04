@@ -88,6 +88,10 @@ a {
 
 .error-banner {
   margin: 0 0 $space-md;
+  padding: $space-md;
+  border: 1px solid $color-danger;
+  border-radius: $radius-md;
+  background: $color-danger-soft;
   color: $color-danger;
 
   p {

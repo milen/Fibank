@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { SubmitEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Card from '../../components/Card'
 import Input from '../../components/Input'
 import { useAuth } from '../../features/auth'
 import { useOffline } from '../../providers'
@@ -33,6 +34,8 @@ function LoginPage() {
   const { showOfflineModal } = useOffline()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [usernameTouched, setUsernameTouched] = useState(false)
+  const [passwordTouched, setPasswordTouched] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -62,37 +65,40 @@ function LoginPage() {
 
   return (
     <main className={styles.page}>
-      <h1>Login</h1>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <Input
-          id="username"
-          label="Username"
-          name="username"
-          type="text"
-          autoComplete="username"
-          value={username}
-          onChange={setUsername}
-          error={getFieldError(username)}
-          disabled={isSubmitting}
-        />
-        <Input
-          id="password"
-          label="Password"
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={setPassword}
-          error={getFieldError(password)}
-          disabled={isSubmitting}
-        />
-        {error ? <p className="error-banner">{error}</p> : null}
-        <div className={styles.actions}>
-          <button type="submit" disabled={!canSubmit}>
-            {isSubmitting ? 'Logging in…' : 'Login'}
-          </button>
-        </div>
-      </form>
+      <Card title="Login" type="default">
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <Input
+            id="username"
+            label="Username"
+            name="username"
+            type="text"
+            autoComplete="username"
+            value={username}
+            onChange={setUsername}
+            onBlur={() => setUsernameTouched(true)}
+            error={usernameTouched ? getFieldError(username) : null}
+            disabled={isSubmitting}
+          />
+          <Input
+            id="password"
+            label="Password"
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={setPassword}
+            onBlur={() => setPasswordTouched(true)}
+            error={passwordTouched ? getFieldError(password) : null}
+            disabled={isSubmitting}
+          />
+          {error ? <p className="error-banner">{error}</p> : null}
+          <div className={styles.actions}>
+            <button type="submit" disabled={!canSubmit}>
+              {isSubmitting ? 'Logging in…' : 'Login'}
+            </button>
+          </div>
+        </form>
+      </Card>
     </main>
   )
 }

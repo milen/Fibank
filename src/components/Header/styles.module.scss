@@ -2,8 +2,9 @@
 
 .root {
   display: flex;
-  flex-direction: column;
-  gap: $space-md;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .title {
