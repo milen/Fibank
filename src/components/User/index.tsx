@@ -10,7 +10,7 @@ function User({ user, onLogout }: UserProps) {
   return (
     <div className={styles.root}>
       <p className={styles.name}>
-        Signed in as {user.firstName} {user.lastName} (@{user.username})
+        Wellcome {user.firstName} {user.lastName}
       </p>
       <button type="button" onClick={onLogout}>
         Logout

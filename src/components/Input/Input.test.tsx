@@ -64,6 +64,10 @@ describe('Input', () => {
 
     expect(screen.getByRole('alert')).toHaveTextContent('Too short')
     expect(screen.getByLabelText('Password')).toHaveAttribute('aria-invalid', 'true')
+    expect(document.getElementById('password-error')?.parentElement).toHaveAttribute(
+      'data-tone',
+      'danger',
+    )
   })
 
   it('reserves space for the error line when there is no error', () => {
@@ -80,6 +84,27 @@ describe('Input', () => {
     const errorLine = document.getElementById('username-error')
     expect(errorLine).toBeInTheDocument()
     expect(errorLine?.textContent).toBe('\u00A0')
+  })
+
+  it('calls onBlur when the input loses focus', async () => {
+    const user = userEvent.setup()
+    const onBlur = vi.fn()
+
+    render(
+      <Input
+        id="username"
+        label="Username"
+        type="text"
+        value="abc"
+        onChange={() => {}}
+        onBlur={onBlur}
+      />,
+    )
+
+    await user.click(screen.getByLabelText('Username'))
+    await user.tab()
+
+    expect(onBlur).toHaveBeenCalledOnce()
   })
 
   it('disables the input when disabled is true', () => {

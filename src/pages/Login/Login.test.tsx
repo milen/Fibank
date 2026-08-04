@@ -119,4 +119,20 @@ describe('LoginPage', () => {
 
     expect(screen.getByRole('button', { name: 'Login' })).toBeEnabled()
   })
+
+  it('shows field errors only after leaving the input', async () => {
+    const user = userEvent.setup()
+    renderLoginPage()
+
+    const username = screen.getByLabelText('Username')
+    await user.type(username, 'abc')
+
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+
+    await user.tab()
+
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      'Must be between 4 and 30 characters',
+    )
+  })
 })

@@ -6,14 +6,24 @@ $color-text-muted: #5c6b7f;
 $color-primary: #0a4d8c;
 $color-primary-hover: #083b6b;
 $color-primary-soft: #e7f0f8;
-$color-danger: #c62828;
-$color-danger-soft: #fdecec;
 $color-border: #cfd8e3;
 $color-border-strong: #9aabbf;
 $color-overlay: rgba(15, 23, 42, 0.45);
 $color-overlay-soft: rgba(255, 255, 255, 0.62);
 $color-spinner-track: #e5ebf2;
 $color-spinner: #152033;
+
+// Semantic colors
+$color-default: #0a4d8c;
+$color-default-soft: #e7f0f8;
+$color-success: #2e7d32;
+$color-success-soft: #e9f6ec;
+$color-disabled: #7a889b;
+$color-disabled-soft: #eef2f6;
+$color-danger: #c62828;
+$color-danger-soft: #fdecec;
+$color-warning: #b26a00;
+$color-warning-soft: #fff4df;
 
 // Typography
 $font-family-base: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;

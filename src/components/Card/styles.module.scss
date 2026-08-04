@@ -1,0 +1,65 @@
+@use 'sass:map';
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+$card-types: (
+  'default': (
+    color: $color-default,
+    soft: $color-default-soft,
+  ),
+  'success': (
+    color: $color-success,
+    soft: $color-success-soft,
+  ),
+  'disabled': (
+    color: $color-disabled,
+    soft: $color-disabled-soft,
+  ),
+  'danger': (
+    color: $color-danger,
+    soft: $color-danger-soft,
+  ),
+  'warning': (
+    color: $color-warning,
+    soft: $color-warning-soft,
+  ),
+);
+
+.root {
+  @include card-surface;
+  border: 1px solid white;
+  overflow: hidden;
+  min-width: 20rem;
+  max-width: 30rem;
+
+  .title {
+    margin: 0;
+    padding: $space-lg $space-xl;
+    font-size: 1.125rem;
+  }
+
+  .body {
+    padding: $space-xl;
+    color: $color-text;
+  }
+
+  @each $type, $tokens in $card-types {
+    $accent: map.get($tokens, color);
+    $soft: map.get($tokens, soft);
+
+    &[data-type='#{$type}'] {
+
+      .title {
+        color: $accent;
+        border-color: $accent;
+        background: $soft;
+        border-bottom: 1px solid $accent;
+      }
+
+      .body {
+        background: linear-gradient(180deg, $color-surface 0%, $soft 100%);
+        border-color: $accent;
+      }
+    }
+  }
+}
