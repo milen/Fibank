@@ -135,4 +135,20 @@ describe('LoginPage', () => {
       'Must be between 4 and 30 characters',
     )
   })
+
+  it('clears the field error when typing again after a blur validation', async () => {
+    const user = userEvent.setup()
+    renderLoginPage()
+
+    const username = screen.getByLabelText('Username')
+    await user.type(username, 'abc')
+    await user.tab()
+
+    expect(screen.getByRole('alert')).toBeInTheDocument()
+
+    await user.clear(username)
+    await user.type(username, 'a')
+
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  })
 })

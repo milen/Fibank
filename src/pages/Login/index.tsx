@@ -36,12 +36,22 @@ function LoginPage() {
   const { showOfflineModal } = useOffline()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [usernameTouched, setUsernameTouched] = useState(false)
-  const [passwordTouched, setPasswordTouched] = useState(false)
+  const [usernameError, setUsernameError] = useState<string | null>(null)
+  const [passwordError, setPasswordError] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const canSubmit = isValid(username) && isValid(password) && !isSubmitting
+
+  function handleUsernameChange(value: string) {
+    setUsername(value)
+    setUsernameError(null)
+  }
+
+  function handlePasswordChange(value: string) {
+    setPassword(value)
+    setPasswordError(null)
+  }
 
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -76,9 +86,9 @@ function LoginPage() {
             type="text"
             autoComplete="username"
             value={username}
-            onChange={setUsername}
-            onBlur={() => setUsernameTouched(true)}
-            error={usernameTouched ? getFieldError(username) : null}
+            onChange={handleUsernameChange}
+            onBlur={() => setUsernameError(getFieldError(username))}
+            error={usernameError}
             disabled={isSubmitting}
           />
           <Input
@@ -88,9 +98,9 @@ function LoginPage() {
             type="password"
             autoComplete="current-password"
             value={password}
-            onChange={setPassword}
-            onBlur={() => setPasswordTouched(true)}
-            error={passwordTouched ? getFieldError(password) : null}
+            onChange={handlePasswordChange}
+            onBlur={() => setPasswordError(getFieldError(password))}
+            error={passwordError}
             disabled={isSubmitting}
           />
           {error ? <p className="error-banner">{error}</p> : null}
