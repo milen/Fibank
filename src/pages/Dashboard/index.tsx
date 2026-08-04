@@ -1,8 +1,9 @@
 import { useEffect, useEffectEvent, useState } from 'react'
-import { ChevronLeft, ChevronRight, RefreshCw, Table2 } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Info, RefreshCw, Table2, X } from 'lucide-react'
 import Button from '../../components/Button'
 import Header from '../../components/Header'
 import LoadingOverlay from '../../components/LoadingOverlay'
+import Modal from '../../components/Modal'
 import { fetchPeoplePage, type Person } from '../../features/people'
 import { useOffline } from '../../providers'
 import { isNetworkError } from '../../utils/errors'
@@ -20,6 +21,7 @@ function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [reloadToken, setReloadToken] = useState(0)
+  const [selectedPerson, setSelectedPerson] = useState<Person | null>(null)
 
   const notifyOffline = useEffectEvent(() => {
     showOfflineModal()
@@ -90,20 +92,30 @@ function DashboardPage() {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Mass</th>
-              <th>Height</th>
-              <th>Hair color</th>
-              <th>Skin color</th>
+              <th className={styles.desktopOnly}>Mass</th>
+              <th className={styles.desktopOnly}>Height</th>
+              <th className={styles.desktopOnly}>Hair color</th>
+              <th className={styles.desktopOnly}>Skin color</th>
+              <th className={styles.mobileOnly}>Details</th>
             </tr>
           </thead>
           <tbody>
             {people.map((person) => (
               <tr key={person.name}>
-                <td>{person.name}</td>
-                <td>{person.mass}</td>
-                <td>{person.height}</td>
-                <td>{person.hair_color}</td>
-                <td>{person.skin_color}</td>
+                <td className={styles.nameCell}>{person.name}</td>
+                <td className={styles.desktopOnly}>{person.mass}</td>
+                <td className={styles.desktopOnly}>{person.height}</td>
+                <td className={styles.desktopOnly}>{person.hair_color}</td>
+                <td className={styles.desktopOnly}>{person.skin_color}</td>
+                <td className={styles.mobileOnly}>
+                  <Button
+                    type="default"
+                    variant="text"
+                    icon={Info}
+                    aria-label={`Details for ${person.name}`}
+                    onClick={() => setSelectedPerson(person)}
+                  />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -150,6 +162,41 @@ function DashboardPage() {
           </Button>
         </div>
       </div>
+
+      <Modal
+        open={selectedPerson !== null}
+        title={selectedPerson?.name ?? 'Details'}
+        type="default"
+        onClose={() => setSelectedPerson(null)}
+      >
+        {selectedPerson ? (
+          <>
+            <ul className={styles.detailsList}>
+              <li className={styles.detailItem}>
+                <p className={styles.detailLabel}>Mass</p>
+                <p className={styles.detailValue}>{selectedPerson.mass}</p>
+              </li>
+              <li className={styles.detailItem}>
+                <p className={styles.detailLabel}>Height</p>
+                <p className={styles.detailValue}>{selectedPerson.height}</p>
+              </li>
+              <li className={styles.detailItem}>
+                <p className={styles.detailLabel}>Hair color</p>
+                <p className={styles.detailValue}>{selectedPerson.hair_color}</p>
+              </li>
+              <li className={styles.detailItem}>
+                <p className={styles.detailLabel}>Skin color</p>
+                <p className={styles.detailValue}>{selectedPerson.skin_color}</p>
+              </li>
+            </ul>
+            <div className={styles.modalActions}>
+              <Button type="default" icon={X} onClick={() => setSelectedPerson(null)}>
+                Close
+              </Button>
+            </div>
+          </>
+        ) : null}
+      </Modal>
     </main>
   )
 }

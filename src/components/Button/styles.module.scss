@@ -30,7 +30,7 @@ $button-types: (
   align-items: center;
   justify-content: center;
   gap: $space-sm;
-  padding: 0.55rem 1rem;
+  @include responsive-padding;
   border-radius: $radius-sm;
   font: inherit;
   cursor: pointer;
@@ -48,10 +48,6 @@ $button-types: (
 
   &:focus-visible {
     @include focus-ring;
-  }
-
-  &.iconOnly {
-    padding: 0.55rem;
   }
 
   &.fullWidth {

@@ -29,17 +29,27 @@ $card-types: (
   @include card-surface;
   border: 1px solid white;
   overflow: hidden;
-  min-width: 20rem;
-  max-width: 30rem;
+  width: 100%;
+  border-radius: $radius-md;
+
+  @include respond-md {
+    min-width: 20rem;
+    max-width: 30rem;
+  }
 
   .title {
     margin: 0;
-    padding: $space-lg $space-xl;
-    font-size: 1.125rem;
+    @include responsive-padding(2);
+    font-size: $font-size-md;
+
+    @include respond-md {
+      min-width: 20rem;
+      max-width: 30rem;
+    }
   }
 
   .body {
-    padding: $space-xl;
+    @include responsive-padding(2);
     color: $color-text;
   }
 
@@ -48,7 +58,6 @@ $card-types: (
     $soft: map.get($tokens, soft);
 
     &[data-type='#{$type}'] {
-
       .title {
         color: $accent;
         border-color: $accent;
