@@ -11,28 +11,29 @@
 }
 
 .box {
-  @include flex-column-center;
-  @include card-surface;
-  gap: $space-md;
   padding: $space-lg 1.75rem;
-
-  p {
-    margin: 0;
-    color: $color-text;
-  }
 }
 
-.spinner {
-  width: 2rem;
-  height: 2rem;
-  border: 3px solid $color-spinner-track;
-  border-top-color: $color-spinner;
+.loader {
+  --color-1: #fff;
+  --color-2: #0a3e93;
+  --size: 0.75px;
+
+  width: calc(48 * var(--size));
+  height: calc(48 * var(--size));
+  border: calc(5 * var(--size)) solid var(--color-1);
+  border-bottom-color: var(--color-2);
   border-radius: 50%;
-  animation: spin 0.75s linear infinite;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
 
-@keyframes spin {
-  to {
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
     transform: rotate(360deg);
   }
 }
